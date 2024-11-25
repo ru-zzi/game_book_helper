@@ -84,6 +84,10 @@ int GameHelper::play()
             add(cursor, to);
             show(findRoot(cursor));
         }
+        else if (cmd == "needcheck")
+        {
+            setNeedCheck(cursor, true);
+        }
         else if (cmd == "backlog")
         {
             std::string c;
@@ -203,12 +207,19 @@ void GameHelper::go(int to)
     {
         nodes[to].parent = to;
     }
+    setNeedCheck(to, false);
 }
 
 void GameHelper::add(int from, int to)
 {
     nodes[to].parent = from;
     nodes[from].childs.insert(to);
+    setNeedCheck(to, true);
+}
+
+void GameHelper::setNeedCheck(int id, bool check)
+{
+    nodes[id].needCheck = check;
 }
 
 void GameHelper::backlog(const std::string& clue)
@@ -291,10 +302,12 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast)
 {
     const auto& node = nodes[id];
 
-    std::print("{}{}{}\t\t{}\n",
+    std::print("{}{}{}{}{}\t\t{}\n",
         prefix,
         (isLast ? "戌式式" : "戍式式"),
-        cursor == id ? std::format("@Ⅱ{}", id) : std::to_string(id),
+        id,
+        cursor == id ? "９@" : "",
+        nodes[id].needCheck ? "王" : "",
         node.desc.empty() ? "" : "memo: " + node.desc);
 
     for (int i = 0; int child : node.childs) {
@@ -351,6 +364,10 @@ void GameHelper::load()
             std::string to;
             file >> to;
             addBacklog(cursor, to);
+        }
+        else if (cmd == "needcheck")
+        {
+            setNeedCheck(cursor, true);
         }
         else if (cmd == "setclue" || cmd == "addclue")
         {

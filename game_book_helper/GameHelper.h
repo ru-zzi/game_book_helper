@@ -9,6 +9,7 @@
 struct node {
     int id{};
     int parent{};
+    bool needCheck{};
     std::set<int> childs;
     std::string desc;
 };
@@ -26,6 +27,7 @@ private:
     void init(int n);
     void go(int to);
     void add(int from, int to);
+    void setNeedCheck(int id, bool check);
     void backlog(const std::string& clue);
     void addBacklog(int from, const std::string& to);
     void clue();
