@@ -302,12 +302,11 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast)
 {
     const auto& node = nodes[id];
 
-    std::print("{}{}{}{}{}\t\t{}\n",
+    std::print("{}{}{}{}\t\t{}\n",
         prefix,
         (isLast ? "戌式式" : "戍式式"),
         id,
-        cursor == id ? "９@" : "",
-        nodes[id].needCheck ? "王" : "",
+        cursor == id ? "９@" : nodes[id].needCheck ? "王" : "",
         node.desc.empty() ? "" : "memo: " + node.desc);
 
     for (int i = 0; int child : node.childs) {
