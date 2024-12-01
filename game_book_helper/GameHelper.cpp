@@ -4,6 +4,7 @@
 #include <fstream>
 #include <print>
 #include <iostream>
+#include <functional>
 #include <algorithm>
 
 constexpr std::string_view gameNames[] = { "´Á´ëÀÎ°£_¸¶À»¿¡¼­_Å»Ãâ", "½ÖµÕÀÌ_¼¶¿¡¼­_Å»Ãâ", "10ÀÎÀÇ_¿ì¿ïÇÑ_¿ëÀÇÀÚ" };
@@ -75,10 +76,10 @@ int GameHelper::play()
         }
         else if (cmd == "add")
         {
-            int to;
+            std::string to;
             if (!(ss >> to))
             {
-                err("input like: add [num]");
+                err("input like: add [str]");
                 continue;
             }
             add(cursor, to);
@@ -87,27 +88,6 @@ int GameHelper::play()
         else if (cmd == "needcheck")
         {
             setNeedCheck(cursor, true);
-        }
-        else if (cmd == "backlog")
-        {
-            std::string c;
-            if (!(ss >> c))
-            {
-                err("input like: backlog [str]");
-                continue;
-            }
-            backlog(c);
-            continue;
-        }
-        else if (cmd == "addBacklog")
-        {
-            std::string to;
-            if (!(ss >> to))
-            {
-                err("input like: addBacklog [str]");
-                continue;
-            }
-            addBacklog(cursor, to);
         }
         else if (cmd == "memo")
         {
@@ -210,39 +190,24 @@ void GameHelper::go(int to)
     setNeedCheck(to, false);
 }
 
-void GameHelper::add(int from, int to)
+void GameHelper::add(int from, const std::string& to)
 {
-    nodes[to].parent = from;
-    nodes[from].childs.insert(to);
-    setNeedCheck(to, true);
+    if (std::ranges::all_of(to, isdigit))
+    {
+        const auto ito = std::stoi(to);
+        nodes[from].childs.insert(ito);
+        nodes[ito].parent = from;
+        setNeedCheck(ito, true);
+    }
+    else
+    {
+        nodes[from].backlogs.insert(to);
+    }
 }
 
 void GameHelper::setNeedCheck(int id, bool check)
 {
     nodes[id].needCheck = check;
-}
-
-void GameHelper::backlog(const std::string& clue)
-{
-    for (const auto backlog : backlogs[clue])
-    {
-        std::print("{}¡æ{} ", backlog.first, backlog.second);
-    }
-    std::print("\n");
-}
-
-void GameHelper::addBacklog(int from, const std::string& to)
-{
-    for (auto token : parse(to))
-    {
-        try {
-            std::stoi(token);
-        }
-        catch (std::invalid_argument) {
-            backlogs[token].emplace_back(from, to);
-            clues[token] = std::nullopt;
-        }
-    }
 }
 
 void GameHelper::clue()
@@ -251,10 +216,9 @@ void GameHelper::clue()
     {
         return;
     }
-    std::print("{}:{}", clues.begin()->first, clues.begin()->second ? *clues.begin()->second : -1);
     for (const auto& clue : clues | std::views::drop(1))
     {
-        std::print(", {}:{}", clue.first, clue.second ? *clue.second : -1);
+        std::print("{}: {}\n", clue.first, clue.second ? *clue.second : -1);
     }
     std::print("\n");
 }
@@ -262,27 +226,18 @@ void GameHelper::clue()
 void GameHelper::setClue(const std::string& clue, int x)
 {
     clues[clue] = x;
-
-    for (const auto backlog : backlogs[clue])
+    for (auto node : nodes)
     {
-        int sum = 0;
-        if (std::ranges::all_of(parse(backlog.second), [&sum, this](const auto token) {
-            try {
-                sum += std::stoi(token);
-                return true;
-            }
-            catch (std::invalid_argument) {
-                if (clues[token].has_value())
+        for (auto backlog : node.backlogs)
+        {
+            if (const auto sum = trySum(backlog); sum)
+            {
+                if (isRoot(nodes[*sum])) // »õ·Î ¹ß°ßµÊ
                 {
-                    sum += *clues[token];
-                    return true;
+                    nodes[*sum].parent = node.id;
+                    setNeedCheck(*sum, true);
                 }
             }
-            return false;
-            }))
-        {
-            add(backlog.first, sum);
-            std::print("{}¡æ{}:{} added.\n", backlog.first, backlog.second, sum);
         }
     }
 }
@@ -298,28 +253,51 @@ void GameHelper::addMemo(int id, const std::string& adding_desc)
     desc += desc.empty() ? adding_desc : ", " + adding_desc;
 }
 
-void GameHelper::show(int id, const std::string& prefix, bool isLast)
+void GameHelper::show(int id, const std::string& prefix, bool isLast, const std::string& log)
 {
-    const auto& node = nodes[id];
+	const auto& node = nodes[id];
 
-    std::print("{}{}{}{}\t\t{}\n",
-        prefix,
-        (isLast ? "¦¦¦¡¦¡" : "¦§¦¡¦¡"),
-        id,
-        cursor == id ? "¢¸@" : nodes[id].needCheck ? "¤ý" : "",
-        node.desc.empty() ? "" : "memo: " + node.desc);
+	std::print("{:20}\t\t{}\n",
+		std::format("{}{}{}{}{}",
+			prefix,
+			(isLast ? "¦¦¦¡¦¡" : "¦§¦¡¦¡"),
+			log.empty() ? "" : std::format("({})=", log),
+			node.id,
+			cursor == node.id ? "¢¸@" : node.needCheck ? "¤ý" : ""),
+		node.desc.empty() ? "" : "memo: " + node.desc);
 
-    for (int i = 0; int child : node.childs) {
-        show(child, prefix + (isLast ? "   " : "¦¢  "), ++i == node.childs.size());
-    }
+	int isNotLast = node.childs.size() + node.backlogs.size();
+	for (int id : node.childs)
+	{
+		show(id, prefix + (isLast ? "   " : "¦¢  "), !--isNotLast);
+	}
+	for (const std::string& backlog : node.backlogs)
+	{
+		if (const auto sum = trySum(backlog); sum)
+		{
+			show(*sum, prefix + (isLast ? "   " : "¦¢  "), !--isNotLast, backlog);
+		}
+		else
+		{
+			std::print("{:20}\t\t{}\n",
+				std::format("{}{}{}",
+					prefix + (isLast ? "   " : "¦¢  "),
+					(!--isNotLast ? "¦¦¦¡¦¡" : "¦§¦¡¦¡"),
+					std::format("({})=?", backlog)),
+				node.desc.empty() ? "" : "memo: " + node.desc);
+		}
+	}
 }
 
 void GameHelper::showAll()
 {
-    for (auto node : nodes | std::views::drop(1) | std::views::filter(isRoot))
-    {
-        show(node.id);
-    }
+	for (auto id : std::views::iota(1u, nodes.size()))
+	{
+        if (isRoot(nodes[id]))
+        {
+            show(id);
+        }
+	}
 }
 
 int GameHelper::findRoot(int id)
@@ -329,6 +307,29 @@ int GameHelper::findRoot(int id)
         id = nodes[id].parent;
     }
     return id;
+}
+
+std::optional<int> GameHelper::trySum(const std::string& log)
+{
+	int sum = 0;
+	if (!std::ranges::all_of(parse(log), [&sum, this](const auto token) {
+		try {
+			sum += std::stoi(token);
+			return true;
+		}
+		catch (std::invalid_argument) {
+			if (clues[token].has_value())
+			{
+				sum += *clues[token];
+				return true;
+			}
+		}
+		return false;
+		}))
+	{
+		return std::nullopt;
+	}
+	return sum;
 }
 
 void GameHelper::load()
@@ -354,15 +355,9 @@ void GameHelper::load()
         }
         else if (cmd == "add")
         {
-            int to;
-            file >> to;
-            add(cursor, to);
-        }
-        else if (cmd == "addbacklog")
-        {
             std::string to;
             file >> to;
-            addBacklog(cursor, to);
+            add(cursor, to);
         }
         else if (cmd == "needcheck")
         {
