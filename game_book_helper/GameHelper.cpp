@@ -37,7 +37,7 @@ GameHelper::GameHelper()
 GameHelper::~GameHelper()
 {
     const auto duration = std::chrono::duration_cast<std::chrono::minutes>(std::chrono::system_clock::now() - startedAt);
-    std::print("\nGameHelper::오늘의 게임끝~ (게임시간 : {})\n", duration);
+    std::print("GameHelper::오늘의 게임끝~ (게임시간 : {})\n", duration);
 }
 
 int GameHelper::play()
@@ -47,11 +47,13 @@ int GameHelper::play()
 
     std::string line;
 
-    while (std::getline(std::cin, line))
+    while (std::print("\n===================================\n\n"), std::getline(std::cin, line))
     {
         std::stringstream ss(line);
         std::string cmd;
         ss >> cmd;
+
+        std::print("\n");
 
         if (cmd == "init")
         {
@@ -217,7 +219,6 @@ void GameHelper::clue()
     {
         std::print("{}: {}\n", clue.first, clue.second ? *clue.second : -1);
     }
-    std::print("\n");
 }
 
 void GameHelper::setClue(const std::string& clue, int x)
