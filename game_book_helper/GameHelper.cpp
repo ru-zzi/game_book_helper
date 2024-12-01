@@ -111,7 +111,7 @@ int GameHelper::play()
             clue();
             continue;
         }
-        else if (cmd == "addclue")
+        else if (cmd == "setclue")
         {
             std::string c;
             int x;
@@ -368,7 +368,7 @@ void GameHelper::load()
         {
             setNeedCheck(cursor, true);
         }
-        else if (cmd == "setclue" || cmd == "addclue")
+        else if (cmd == "setclue")
         {
             std::string c;
             int x;

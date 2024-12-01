@@ -44,13 +44,11 @@ go 183
 add 183+가
 go 364
 add 364+보
-addclue 가 13
-addclue 나 41
-
+setclue 가 13
+setclue 나 41
 go 274
 add 274+가
 add 274+시간2
-addclue 가 13
 go 287
 add 88
 go 88
@@ -59,7 +57,7 @@ add 433
 add 332
 add 13
 go 433
-addclue 다 20
+setclue 다 20
 go 13
 needcheck
 go 332
