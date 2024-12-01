@@ -44,5 +44,4 @@ private:
     int cursor;
     std::vector<node> nodes;
     std::unordered_map<std::string, std::optional<int>> clues;
-    std::unordered_map<std::string, std::vector<std::pair<int, std::string>>> backlogs;
 };
