@@ -46,6 +46,46 @@ go 364
 addbacklog 364+보
 addclue 가 13
 addclue 나 41
-go 200
-setfin 200
-go 183
+
+go 274
+addbacklog 274+가
+addbacklog 274+시간2
+addclue 가 13
+go 287
+add 88
+go 88
+go 225
+add 433
+add 332
+add 13
+go 433
+addclue 다 20
+go 13
+needcheck
+go 332
+go 13
+addmemo 조르주방에걸린그림, 양이4마리
+go 274
+go 37
+addmemo COUNT PEOPLE
+go 17
+go 90
+go 37
+addmemo 양피지
+go 22
+go 328
+go 166
+needcheck
+go 211
+go 166
+go 211
+go 372
+go 211
+addmemo 그림(거실남쪽,4시반회상)
+go 317
+go 121
+go 196
+go 90
+addmemo 괘종시계방
+go 37
+add 103
