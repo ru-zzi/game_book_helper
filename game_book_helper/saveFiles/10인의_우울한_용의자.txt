@@ -62,14 +62,14 @@ go 13
 needcheck
 go 332
 go 13
-addmemo 조르주방에걸린그림, 양이4마리
+memo 조르주방에걸린그림, 양이4마리
 go 274
 go 37
-addmemo COUNT PEOPLE
+memo COUNT PEOPLE
 go 17
 go 90
 go 37
-addmemo 양피지
+memo 양피지
 go 22
 go 328
 go 166
@@ -79,11 +79,11 @@ go 166
 go 211
 go 372
 go 211
-addmemo 그림(거실남쪽,4시반회상)
+memo 그림(거실남쪽,4시반회상)
 go 317
 go 121
 go 196
 go 90
-addmemo 괘종시계방
+memo 괘종시계방
 go 37
 add 103

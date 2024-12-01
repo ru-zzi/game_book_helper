@@ -91,16 +91,11 @@ int GameHelper::play()
         }
         else if (cmd == "memo")
         {
-            memo(cursor);
-            continue;
-        }
-        else if (cmd == "addmemo")
-        {
             std::string desc;
             ss.ignore();
             if (!std::getline(ss, desc))
             {
-                err("input like: addmemo [str]");
+                memo(cursor);
                 continue;
             }
             addMemo(cursor, desc);
@@ -137,13 +132,10 @@ int GameHelper::play()
         {
             std::print("init [n]         : 최대 n번까지 있는 게임 초기화.\n"
                 "go [n]           : n번단락으로 이동. n번이 이전단락이 없다면 root단락.\n"
-                "add [n]          : 현재 단락에서 n단락으로 이동하는 간선 추가.\n"
-                "backlog [str]    : str단서와 연관된 백로그 모두 출력.\n"
-                "addbacklog [str] : 백로그 추가.\n"
+                "add [str]        : 현재 단락에서 n단락으로 이동하는 간선 추가.\n"
                 "clue             : 등록된 모든 단서와 값 출력, 아직 발견되지 않았으면 -1.\n"
                 "setclue [str][n] : str단서는 n. 연관된 백로그 중 알아낸 간선을 모두 추가.\n"
-                "memo             : 현재 단락에 등록된 메모를 출력.\n"
-                "addmemo [str]    : 현재 단락에 str 메모를 추가.\n"
+                "memo [str]       : 현재 단락에 등록된 메모를 출력, 현재 단락에 str 메모를 추가.\n"
                 "show             : 현재 단락의 연결상태를 출력.\n"
                 "showall          : 모든 단락 연결상태를 출력.\n");
             continue;
@@ -375,7 +367,7 @@ void GameHelper::load()
             file >> c >> x;
             setClue(c, x);
         }
-        else if (cmd == "addmemo")
+        else if (cmd == "memo")
         {
             std::string desc;
             file.ignore();
