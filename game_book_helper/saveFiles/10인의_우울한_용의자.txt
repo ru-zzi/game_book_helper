@@ -5,10 +5,10 @@ add 356
 add 427
 add 17
 go 125
-addbacklog 125+나
+add 125+나
 go 356
 add 58
-addbacklog 356+시간1
+add 356+시간1
 go 427
 add 425
 go 425
@@ -17,7 +17,7 @@ go 241
 add 317
 go 17
 add 328
-addbacklog 17+다
+add 17+다
 go 58
 add 305
 go 305
@@ -26,30 +26,30 @@ add 372
 go 90
 add 9
 go 9
-addbacklog 9+가
-addbacklog 9+시간1
+add 9+가
+add 9+시간1
 go 200
 add 33
 add 233
 add 435
 add 121
 go 33
-addbacklog 33+하
+add 33+하
 go 233
-addbacklog 233+나
+add 233+나
 go 435
 add 183
 add 364
 go 183
-addbacklog 183+가
+add 183+가
 go 364
-addbacklog 364+보
+add 364+보
 addclue 가 13
 addclue 나 41
 
 go 274
-addbacklog 274+가
-addbacklog 274+시간2
+add 274+가
+add 274+시간2
 addclue 가 13
 go 287
 add 88
