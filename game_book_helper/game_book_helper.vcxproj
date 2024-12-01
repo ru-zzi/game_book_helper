@@ -25,6 +25,9 @@
   <ItemGroup>
     <ClInclude Include="GameHelper.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="saveFiles\10인의_우울한_용의자.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
