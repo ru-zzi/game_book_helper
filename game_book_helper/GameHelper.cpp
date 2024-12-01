@@ -202,6 +202,11 @@ void GameHelper::add(int from, const std::string& to)
     else
     {
         nodes[from].backlogs.insert(to);
+        if (const auto sum = trySum(to); sum)
+        {
+            nodes[*sum].parent = from;
+            setNeedCheck(*sum, true);
+        }
     }
 }
 
@@ -226,9 +231,9 @@ void GameHelper::clue()
 void GameHelper::setClue(const std::string& clue, int x)
 {
     clues[clue] = x;
-    for (auto node : nodes)
+    for (const auto& node : nodes)
     {
-        for (auto backlog : node.backlogs)
+        for (const auto& backlog : node.backlogs)
         {
             if (const auto sum = trySum(backlog); sum)
             {
