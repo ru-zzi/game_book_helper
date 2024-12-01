@@ -229,7 +229,7 @@ void GameHelper::setClue(const std::string& clue, int x)
         {
             if (const auto sum = trySum(backlog); sum)
             {
-                if (isRoot(nodes[*sum])) // »õ·Î ¹ß°ßµÊ
+                if (!nodes[*sum].parent) // »õ·Î ¹ß°ßµÊ
                 {
                     nodes[*sum].parent = node.id;
                     setNeedCheck(*sum, true);
