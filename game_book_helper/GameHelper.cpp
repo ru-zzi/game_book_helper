@@ -36,8 +36,6 @@ GameHelper::GameHelper()
 
 GameHelper::~GameHelper()
 {
-    const auto duration = std::chrono::duration_cast<std::chrono::minutes>(std::chrono::system_clock::now() - startedAt);
-    std::print("GameHelper::오늘의 게임끝~ (게임시간 : {})\n", duration);
 }
 
 int GameHelper::play()
@@ -157,7 +155,15 @@ int GameHelper::play()
         file << line << std::endl;
     }
 
+    const auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - startedAt);
+    totalPlayTime += duration;
+    file << std::format("playtime {}", duration.count());
+
     file.close();
+
+    std::print("GameHelper::오늘의 게임끝~\n오늘 게임시간 : {}\n누적 게임시간 : {}\n",
+        std::chrono::duration_cast<std::chrono::minutes>(duration),
+        std::chrono::duration_cast<std::chrono::minutes>(totalPlayTime));
 
     return 0;
 }
@@ -386,6 +392,12 @@ void GameHelper::load()
             ss.ignore();
             std::getline(ss, memo);
             addMemo(cursor, memo);
+        }
+        else if (cmd == "playtime")
+        {
+            int m;
+            ss >> m;
+            totalPlayTime += std::chrono::seconds(m);
         }
     }
 

@@ -40,6 +40,7 @@ private:
     void load();
 
     const std::chrono::system_clock::time_point startedAt;
+    std::chrono::seconds totalPlayTime;
     std::string saveFileName;
     int cursor;
     std::vector<node> nodes;
