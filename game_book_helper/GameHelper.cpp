@@ -157,7 +157,7 @@ int GameHelper::play()
 
     const auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - startedAt);
     totalPlayTime += duration;
-    file << std::format("playtime {}", duration.count());
+    file << std::format("playtime {}", duration.count()) << std::endl;
 
     file.close();
 
@@ -290,12 +290,11 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
         }
         else
         {
-            std::print("{:20}\t\t{}\n",
+            std::print("{:20}\n",
                 std::format("{}{}{}",
                     prefix + (isLast ? "   " : "│  "),
                     (!--isNotLast ? "└──" : "├──"),
-                    std::format("({})=?", backlog)),
-                node.memo.empty() ? "" : "memo: " + node.memo);
+                    std::format("({})=?", backlog)));
         }
     }
 }
@@ -401,7 +400,7 @@ void GameHelper::load()
         }
     }
 
-    std::print("GameHelper::loading completed!\n");
+    std::print("GameHelper::세이브파일 로딩 완료!\n\n{} 부터 시작~!\n", cursor);
 
     file.close();
 }
