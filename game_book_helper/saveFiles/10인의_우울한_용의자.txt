@@ -116,3 +116,62 @@ memo 유다의 입맞춤
 go 368
 add 368+사
 playtime 1670
+go 250
+add 412
+add 250+라
+go 412
+add 412+서
+go 390
+memo 조르주의 방
+add 252
+add 390+라
+add 390+조
+add 390+시간2
+go 252
+memo 7인의사도 퀴즈
+go 50
+playtime 879
+add 150
+add 216
+add 50+시간4
+go 150
+memo 북두칠성 그림
+go 216
+add 408
+memo 받침대 로마숫자6
+go 408
+add 408+모
+go 140
+memo 거실
+add 383
+add 316
+add 280
+add 140+시간1
+go 280
+go 383
+go 316
+memo 원형테이블
+setclue 파 15
+add 316+러
+go 280
+memo 책, 십자가, 창, 지팡이
+go 152
+add 257
+add 116
+add 201
+add 82
+add 338
+add 143
+go 257
+memo 데이비드
+add 194
+add 257+파
+go 194
+setclue 라 12
+go 272
+go 262
+add 104
+go 104
+go 402
+go 152
+playtime 911
