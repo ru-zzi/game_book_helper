@@ -175,3 +175,37 @@ go 104
 go 402
 go 152
 playtime 911
+go 116
+add 324
+add 116+아
+memo 로넷
+go 324
+go 201
+memo 크리스핀
+add 334
+add 389
+go 334
+go 389
+go 252
+add 210
+go 210
+go 155
+memo 12:30
+add 23
+go 23
+setclue 마 35
+go 82
+memo 제레미
+add 161
+add 349
+add 371
+go 161
+setclue 사 6
+go 349
+go 371
+go 374
+add 417
+go 417
+setclue 아 82
+go 375
+playtime 1349
