@@ -259,3 +259,69 @@ add 407+타
 go 340
 memo 이자벨 방
 playtime 1710
+add 340+시간1
+add 340+시간2
+add 340+시간3
+add 340+시간4
+go 352
+add 18
+go 18
+memo 마을의전설: 그리스도의 비밀을 둘러싼 무언가
+go 30
+memo 폴라의 방
+add 30+시간1
+add 30+시간2
+add 30+시간3
+add 30+시간4
+add 2
+go 2
+memo 남십자자리 별 그림
+memo 네 남자
+go 42
+add 336
+add 231
+go 336
+setclue 바 25
+go 231
+go 220
+memo 장의 방
+add 404
+add 220+어
+add 220+시간2
+add 220+시간3
+add 220+시간4
+go 404
+add 404+바
+go 429
+go 370
+memo 응접실
+add 163
+add 52
+add 213
+add 370+러
+go 163
+go 52
+add 52+마
+add 52+저
+go 87
+add 384
+add 87+파
+go 384
+go 102
+add 6
+add 422
+go 422
+add 278
+add 168
+go 6
+go 278
+add 93
+add 11
+go 93
+go 11
+go 168
+go 213
+memo 바위에 앉아 땅을 보는 성자의 그림
+go 235
+memo 18:00
+playtime 1646
