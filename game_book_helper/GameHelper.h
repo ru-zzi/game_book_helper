@@ -5,6 +5,7 @@
 #include <optional>
 #include <chrono>
 #include <set>
+#include <Windows.h>
 
 struct node {
     int id{};
@@ -40,6 +41,7 @@ private:
     void load();
 
     const std::chrono::system_clock::time_point startedAt;
+    const HANDLE consoleHandle;
     std::chrono::seconds totalPlayTime;
     std::string saveFileName;
     int cursor;
