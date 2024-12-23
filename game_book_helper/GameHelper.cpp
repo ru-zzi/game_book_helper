@@ -19,7 +19,7 @@ std::vector<std::string> parse(std::string_view sv)
 }
 
 GameHelper::GameHelper()
-    : startedAt(std::chrono::system_clock::now())
+	: startedAt(std::chrono::system_clock::now()), consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
 {
     for (int i = 0; i < 3; ++i)
     {
@@ -268,14 +268,19 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
 {
     const auto& node = nodes[id];
 
-    std::print("{:20}\t\t{}\n",
-        std::format("{}{}{}{}{}",
-            prefix,
-            (isLast ? "戌式式" : "戍式式"),
-            log.empty() ? "" : std::format("({})=", log),
-            node.id,
-            cursor == node.id ? "９@" : node.needCheck ? "王" : ""),
-        node.memo.empty() ? "" : "memo: " + node.memo);
+	SetConsoleTextAttribute(consoleHandle, 7);
+	std::print("{}{}",
+		prefix,
+		(isLast ? "戌式式" : "戍式式"));
+
+	SetConsoleTextAttribute(consoleHandle, cursor == node.id ? 10 : node.needCheck ? 4 : 7);
+	std::print("{}{}{:20}\t\t", 
+        log.empty() ? "" : std::format("({})=", log),
+        node.id,
+        cursor == node.id ? "９@" : node.needCheck ? "王" : "");
+
+	SetConsoleTextAttribute(consoleHandle, 7);
+	std::print("{}\n", node.memo.empty() ? "" : "memo: " + node.memo);
 
     int isNotLast = node.childs.size() + node.backlogs.size();
     for (int id : node.childs)
