@@ -325,3 +325,29 @@ memo 바위에 앉아 땅을 보는 성자의 그림
 go 235
 memo 18:00
 playtime 1646
+memo 춤추는 인형, 네 가지 카드, 해골피리
+add 343
+go 343
+memo 18시 살롱 [데이비드, 클로드, 크리스핀 신부, 로넷이 내준 홍차, 이자벨]
+go 270
+memo 현관 홀
+add 145
+add 441
+add 270+카
+go 145
+add 297
+go 297
+go 441
+go 323
+setclue 타 7
+go 414
+add 414+차
+go 430
+memo 남쪽계단
+go 31
+add 234
+setclue 차 20
+go 234
+go 434
+memo 춤추는 인형 GET!
+playtime 1918
