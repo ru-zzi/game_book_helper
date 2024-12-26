@@ -351,3 +351,56 @@ go 234
 go 434
 memo 춤추는 인형 GET!
 playtime 1918
+go 235
+add 62
+setclue 하 62
+go 62
+go 95
+setclue 시간2 8
+go 120
+memo 화랑
+needcheck
+go 330
+memo 주방
+needcheck
+go 410
+memo 북쪽 계단
+needcheck
+go 298
+go 398
+memo 쌍둥이, 기러기, 물고기
+add 16
+go 16
+add 16+모
+go 348
+add 117
+add 209
+add 348+머
+go 117
+go 209
+go 38
+add 171
+add 246
+add 38+머
+go 171
+go 246
+go 228
+go 282
+add 308
+add 423
+add 208
+memo 화랑 그림 고르기
+go 120
+add 291
+add 249
+add 120+더
+add 120+도
+go 291
+go 385
+memo 15:00
+needcheck
+go 249
+memo 연보라빛 등나무꽃 푸른하늘 하얀꽃
+go 291
+memo 노란색 미모사, 빨간 튤립, 푸른꽃잎 아이리스, 핑크꽃 아몬드나무
+playtime 1650
