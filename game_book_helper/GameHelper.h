@@ -40,7 +40,6 @@ private:
     std::optional<int> trySum(const std::string& log);
     void load();
 
-    static std::set<int> highLighted;
     const std::chrono::system_clock::time_point startedAt;
     const HANDLE consoleHandle;
     std::chrono::seconds totalPlayTime;
