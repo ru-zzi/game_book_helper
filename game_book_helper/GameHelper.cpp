@@ -78,6 +78,17 @@ int GameHelper::play()
             }
             init(n);
         }
+        else if (cmd == "root")
+        {
+            int id;
+            std::string memo;
+            if (!(ss >> id) || ss.ignore(), !std::getline(ss, memo))
+            {
+                err("input like: root id memo");
+                continue;
+            }
+            setRoot(id, memo);
+        }
         else if (cmd == "go")
         {
             int id;
@@ -196,6 +207,13 @@ void GameHelper::init(int n)
     }
 }
 
+void GameHelper::setRoot(int id, const std::string& memo)
+{
+    nodes[id].parent = id;
+    nodes[id].memo = { memo };
+    setNeedCheck(id, true);
+}
+
 void GameHelper::go(int id)
 {
     cursor = id;
@@ -275,6 +293,11 @@ void GameHelper::addMemo(int id, const std::string& adding_desc)
 void GameHelper::show(int id, const std::string& prefix, bool isLast, const std::string& log)
 {
     const auto& node = nodes[id];
+
+    if (isRoot(node) && !node.memo.empty())
+    {
+        std::print("# {}\n", node.memo.front());
+    }
 
 	SetConsoleTextAttribute(consoleHandle, 7);
 	std::print("{}{}",
@@ -403,6 +426,15 @@ void GameHelper::load()
             int n;
             ss >> n;
             init(n);
+        }
+        else if (cmd == "root")
+        {
+            int id;
+            std::string memo;
+            ss >> id;
+            ss.ignore();
+            std::getline(ss, memo);
+            setRoot(id, memo);
         }
         else if (cmd == "go")
         {
