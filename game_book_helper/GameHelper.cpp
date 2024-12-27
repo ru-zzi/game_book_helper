@@ -9,6 +9,8 @@
 
 constexpr std::string_view gameNames[] = { "¥¡¥Î¿Œ∞£_∏∂¿ªø°º≠_≈ª√‚", "Ω÷µ’¿Ã_º∂ø°º≠_≈ª√‚", "10¿Œ¿«_øÏøÔ«—_øÎ¿«¿⁄" };
 
+std::string searchingToken;
+
 bool isRoot(const node& x)
 {
     return x.id == x.parent;
@@ -39,7 +41,10 @@ COORD GetConsoleCursorPosition(HANDLE hConsoleOutput)
     }
 }
 
-std::set<int> GameHelper::highLighted;
+bool hasToken(const std::string& str)
+{
+    return !searchingToken.empty() && str.find(searchingToken) != std::string::npos;
+}
 
 GameHelper::GameHelper()
 	: startedAt(std::chrono::system_clock::now()), consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
@@ -315,31 +320,16 @@ void GameHelper::addMemo(int id, const std::string& adding_desc)
 
 void GameHelper::search(const std::string& token)
 {
-    const auto findToken = [token](const std::string& str) { return str.find(token) != std::string::npos; };
+    searchingToken = token;
 
-    highLighted = {};
-
-    for (const auto& node : nodes)
-    {
-        if (std::ranges::any_of(node.memo, findToken))
-        {
-            highLighted.insert(node.id);
-        }
-        for (const auto& child : node.childs)
-        {
-            if (const auto sum = trySum(child); sum && findToken(child))
-            {
-                highLighted.insert(*sum);
-            }
-        }
-    }
-
-    for (int id : highLighted | std::views::transform([this](int id) { return findRoot(id); }) | std::ranges::to<std::set>())
+    for (int id : nodes |
+        std::views::filter([](const auto& node) { return std::ranges::any_of(node.memo, hasToken) || std::ranges::any_of(node.childs, hasToken); }) |
+        std::views::transform([this](const auto& node) { return findRoot(node.id); }) | std::ranges::to<std::set>())
     {
         show(id);
     }
 
-    highLighted = {};
+    searchingToken = {};
 }
 
 void GameHelper::show(int id, const std::string& prefix, bool isLast, const std::string& log)
@@ -352,12 +342,14 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
         std::print("\n# {}\n", node.memo.front());
     }
 
-    SetConsoleTextAttribute(consoleHandle, highLighted.contains(id) ? 177 : 7);
+    const auto highLighting = std::ranges::any_of(node.memo, hasToken) || hasToken(std::to_string(id)) || hasToken(log);
+
+    SetConsoleTextAttribute(consoleHandle, highLighting ? 177 : 7);
 	std::print("{}{}",
 		prefix,
 		(isLast ? "¶¶¶°¶°" : "¶ß¶°¶°"));
 
-	SetConsoleTextAttribute(consoleHandle, highLighted.contains(id) ? 177 : cursor == node.id ? 10 : node.needCheck ? 4 : 7);
+	SetConsoleTextAttribute(consoleHandle, highLighting ? 177 : cursor == node.id ? 10 : node.needCheck ? 4 : 7);
 	std::print("{}{}{}", 
         log.empty() ? "" : std::format("({})=", log),
         node.id,
@@ -371,6 +363,7 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
     }
     else
     {
+        SetConsoleTextAttribute(consoleHandle, highLighting ? 177 : 7);
         for (int i = 0; const auto & memo : node.memo)
         {
             for (int j = 0; const auto& chunk : memo | std::views::chunk(50))
@@ -409,10 +402,14 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
         }
         else
         {
-			std::print("{}{}{}\n",
+            SetConsoleTextAttribute(consoleHandle, hasToken(child) ? 177 : 7);
+            std::print("{}{}{}",
 				prefix + (isLast ? "   " : "¶¢  "),
 				(!--isNotLast ? "¶¶¶°¶°" : "¶ß¶°¶°"),
 				std::format("({})=?", child));
+            std::print("{}", std::string(100 - GetConsoleCursorPosition(consoleHandle).X, ' '));
+            SetConsoleTextAttribute(consoleHandle, 7);
+            std::print("\n");
         }
     }
 }
