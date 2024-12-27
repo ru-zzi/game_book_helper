@@ -82,7 +82,7 @@ int GameHelper::play()
         {
             int id;
             std::string memo;
-            if (!(ss >> id) || ss.ignore(), !std::getline(ss, memo))
+            if (!(ss >> id) || (ss.ignore(), !std::getline(ss, memo)))
             {
                 err("input like: root id memo");
                 continue;
