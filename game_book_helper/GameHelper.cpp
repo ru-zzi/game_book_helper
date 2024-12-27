@@ -9,8 +9,14 @@
 
 constexpr std::string_view gameNames[] = { "늑대인간_마을에서_탈출", "쌍둥이_섬에서_탈출", "10인의_우울한_용의자" };
 
-bool isRoot(const node& x) {
+bool isRoot(const node& x)
+{
     return x.id == x.parent;
+}
+
+bool isDiscovered(const node& x)
+{
+    return !x.parent;
 }
 
 std::vector<std::string> parse(std::string_view sv)
@@ -183,7 +189,7 @@ int GameHelper::play()
                 "quit             : 게임 종료\n");
             continue;
         }
-        else if (cmd == "quit")
+        else if (cmd == "quit" || cmd == "exit")
         {
             break;
         }
@@ -202,9 +208,11 @@ int GameHelper::play()
 
     file.close();
 
-    std::print("GameHelper::오늘의 게임끝~\n오늘 게임시간 : {}\n누적 게임시간 : {}\n",
+    std::print("GameHelper::오늘의 게임끝~\n오늘 게임시간 : {}\n누적 게임시간 : {}\n\n진행된 단락 수: [{}/{}]\n\n",
         std::chrono::duration_cast<std::chrono::minutes>(duration),
-        std::chrono::duration_cast<std::chrono::minutes>(totalPlayTime));
+		std::chrono::duration_cast<std::chrono::minutes>(totalPlayTime),
+        std::ranges::distance(nodes | std::views::filter(isDiscovered)),
+        max_id);
 
     return 0;
 }
@@ -216,9 +224,9 @@ void GameHelper::err(std::string_view msg)
 
 void GameHelper::init(int n)
 {
-    nodes = std::vector<node>(n + 5);
-    for (int i : std::views::iota(0, n + 5))
-    {
+    max_id = n;
+    nodes = std::vector<node>(max_id + 1);
+    for (int i = 1; i <= max_id; ++i) {
         nodes[i].id = i;
     }
 }

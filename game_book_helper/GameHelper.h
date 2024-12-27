@@ -45,7 +45,8 @@ private:
     const HANDLE consoleHandle;
     std::chrono::seconds totalPlayTime;
     std::string saveFileName;
-    int cursor;
+    int max_id{};
+    int cursor{};
     std::vector<node> nodes;
     std::unordered_map<std::string, std::optional<int>> clues;
 };
