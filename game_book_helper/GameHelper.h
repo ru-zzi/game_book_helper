@@ -11,8 +11,7 @@ struct node {
     int id{};
     int parent{};
     bool needCheck{};
-    std::set<int> childs;
-    std::set<std::string> backlogs;
+    std::vector<std::string> childs;
     std::vector<std::string> memo;
 };
 

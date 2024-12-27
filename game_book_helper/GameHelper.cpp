@@ -226,16 +226,15 @@ void GameHelper::go(int id)
 
 void GameHelper::add(int from, const std::string& to)
 {
+    nodes[from].childs.push_back(to);
     if (std::ranges::all_of(to, isdigit))
     {
         const auto ito = std::stoi(to);
-        nodes[from].childs.insert(ito);
         nodes[ito].parent = from;
         setNeedCheck(ito, true);
     }
     else
     {
-        nodes[from].backlogs.insert(to);
         if (const auto sum = trySum(to); sum)
         {
             nodes[*sum].parent = from;
@@ -271,9 +270,9 @@ void GameHelper::setClue(const std::string& showClue, int x)
     clues[showClue] = x;
     for (const auto& node : nodes)
     {
-        for (const auto& backlog : node.backlogs)
+        for (const auto& child : node.childs)
         {
-            if (const auto sum = trySum(backlog); sum)
+            if (const auto sum = trySum(child); sum)
             {
                 if (!nodes[*sum].parent) // »õ·Î ¹ß°ßµÊ
                 {
@@ -323,7 +322,7 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
             {
                 if (i > 0 || j > 0)
                 {
-				    std::print("{}{}{}", prefix, (isLast ? "   " : "¦¢  "), node.childs.empty() && node.backlogs.empty() ? "" : "¦¢  ");
+				    std::print("{}{}{}", prefix, (isLast ? "   " : "¦¢  "), node.childs.empty() ? "" : "¦¢  ");
                 }
                 SetConsoleCursorPosition(consoleHandle, COORD{ 40, GetConsoleCursorPosition(consoleHandle).Y });
                 if (i == 0)
@@ -343,23 +342,19 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
         }
     }
 
-    int isNotLast = node.childs.size() + node.backlogs.size();
-    for (int id : node.childs)
+    int isNotLast = node.childs.size();
+    for (const std::string& child : node.childs)
     {
-        show(id, prefix + (isLast ? "   " : "¦¢  "), !--isNotLast);
-    }
-    for (const std::string& backlog : node.backlogs)
-    {
-        if (const auto sum = trySum(backlog); sum)
+        if (const auto sum = trySum(child); sum)
         {
-            show(*sum, prefix + (isLast ? "   " : "¦¢  "), !--isNotLast, backlog);
+            show(*sum, prefix + (isLast ? "   " : "¦¢  "), !--isNotLast, std::ranges::all_of(child, isdigit) ? "" : child);
         }
         else
         {
 			std::print("{}{}{}\n",
 				prefix + (isLast ? "   " : "¦¢  "),
 				(!--isNotLast ? "¦¦¦¡¦¡" : "¦§¦¡¦¡"),
-				std::format("({})=?", backlog));
+				std::format("({})=?", child));
         }
     }
 }
