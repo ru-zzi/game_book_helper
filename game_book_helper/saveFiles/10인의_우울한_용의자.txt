@@ -1,4 +1,4 @@
-init 500
+init 441
 go 90
 add 125
 add 356
