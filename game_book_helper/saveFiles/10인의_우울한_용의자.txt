@@ -62,7 +62,7 @@ go 13
 needcheck
 go 332
 go 13
-memo 조르주방에걸린그림, 양이4마리
+memo 조르주방에걸린그림 (양이4마리)
 go 274
 go 37
 memo COUNT PEOPLE
@@ -79,7 +79,7 @@ go 166
 go 211
 go 372
 go 211
-memo 그림(거실남쪽,4시반회상)
+memo 거실남쪽 그림
 go 317
 go 121
 go 196
@@ -90,9 +90,10 @@ add 103
 go 103
 add 393
 go 35
-memo 19:30 발견 취소
+memo 19:30
+memo 발견 취소
 go 393
-memo 거실의 그림, 최후의 만찬
+memo 거실의 그림 (최후의 만찬)
 add 146
 go 135
 add 247
@@ -328,7 +329,8 @@ playtime 1646
 memo 춤추는 인형, 네 가지 카드, 해골피리
 add 343
 go 343
-memo 18시 살롱 [데이비드, 클로드, 크리스핀 신부, 로넷이 내준 홍차, 이자벨]
+memo 18시 살롱에 있던 사람
+memo 데이비드, 클로드, 크리스핀 신부, 로넷?, 이자벨
 go 270
 memo 현관 홀
 add 145
@@ -400,7 +402,11 @@ go 385
 memo 15:00
 needcheck
 go 249
-memo 연보라빛 등나무꽃 푸른하늘 하얀꽃
+memo 연보라빛 등나무꽃
+memo 푸른하늘 하얀꽃
 go 291
-memo 노란색 미모사, 빨간 튤립, 푸른꽃잎 아이리스, 핑크꽃 아몬드나무
+memo 노란색 미모사
+memo 빨간 튤립
+memo 푸른꽃잎 아이리스
+memo 핑크꽃 아몬드나무
 playtime 1650
