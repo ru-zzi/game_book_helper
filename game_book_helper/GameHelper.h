@@ -13,7 +13,7 @@ struct node {
     bool needCheck{};
     std::set<int> childs;
     std::set<std::string> backlogs;
-    std::string memo;
+    std::vector<std::string> memo;
 };
 
 class GameHelper
@@ -27,6 +27,7 @@ public:
 private:
     void err(std::string_view msg);
     void init(int n);
+    void setRoot(int id, const std::string& memo);
     void go(int id);
     void add(int from, const std::string& to);
     void setNeedCheck(int id, bool check);
@@ -35,7 +36,6 @@ private:
     void show(int id, const std::string& prefix = {}, bool isLast = true, const std::string& log = {});
     void showAll();
     void showClue();
-    void showMemo(int id);
     int findRoot(int id);
     std::optional<int> trySum(const std::string& log);
     void load();
