@@ -11,8 +11,7 @@ struct node {
     int id{};
     int parent{};
     bool needCheck{};
-    std::set<int> childs;
-    std::set<std::string> backlogs;
+    std::vector<std::string> childs;
     std::vector<std::string> memo;
 };
 
@@ -33,6 +32,7 @@ private:
     void setNeedCheck(int id, bool check);
     void setClue(const std::string& clue, int x);
     void addMemo(int id, const std::string& desc);
+    void search(const std::string& token);
     void show(int id, const std::string& prefix = {}, bool isLast = true, const std::string& log = {});
     void showAll();
     void showClue();
@@ -40,6 +40,7 @@ private:
     std::optional<int> trySum(const std::string& log);
     void load();
 
+    static std::set<int> highLighted;
     const std::chrono::system_clock::time_point startedAt;
     const HANDLE consoleHandle;
     std::chrono::seconds totalPlayTime;
