@@ -27,6 +27,7 @@ public:
 private:
     void err(std::string_view msg);
     void init(int n);
+    void setRoot(int id, const std::string& memo);
     void go(int id);
     void add(int from, const std::string& to);
     void setNeedCheck(int id, bool check);

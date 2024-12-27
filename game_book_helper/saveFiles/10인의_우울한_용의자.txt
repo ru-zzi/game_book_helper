@@ -83,8 +83,8 @@ memo 거실남쪽 그림
 go 317
 go 121
 go 196
+root 90 괘종시계방
 go 90
-memo 괘종시계방
 go 37
 add 103
 go 103
@@ -105,12 +105,12 @@ go 217
 add 191
 go 191
 setclue 시간1 12
+root 290 카일의 방
 go 290
 add 290+시간1
 add 290+시간2
 add 290+시간3
 add 290+시간4
-memo 카일의 방
 go 302
 go 21
 memo 유다의 입맞춤
@@ -122,8 +122,8 @@ add 412
 add 250+라
 go 412
 add 412+서
+root 390 조르주의 방
 go 390
-memo 조르주의 방
 add 252
 add 390+라
 add 390+조
@@ -142,8 +142,8 @@ add 408
 memo 받침대 로마숫자6
 go 408
 add 408+모
+root 140 거실
 go 140
-memo 거실
 add 383
 add 316
 add 280
@@ -231,6 +231,7 @@ go 288
 memo 조르주 그림은 클로드가 조달한 것
 go 182
 go 198
+root 70 정원
 go 70
 add 202
 add 70+고
@@ -239,14 +240,12 @@ add 202+자
 go 219
 add 439
 add 138
-go 70
-memo 정원
 go 439
 go 138
 add 293
 go 293
+root 190 대장간
 go 190
-memo 대장간
 add 92
 add 407
 go 92
@@ -257,8 +256,8 @@ go 31
 memo 양피지2 퀴즈
 go 407
 add 407+타
+root 340 이자벨 방
 go 340
-memo 이자벨 방
 playtime 1710
 add 340+시간1
 add 340+시간2
@@ -268,8 +267,8 @@ go 352
 add 18
 go 18
 memo 마을의전설: 그리스도의 비밀을 둘러싼 무언가
+root 30 폴라의 방
 go 30
-memo 폴라의 방
 add 30+시간1
 add 30+시간2
 add 30+시간3
@@ -284,8 +283,8 @@ add 231
 go 336
 setclue 바 25
 go 231
+root 220 장의 방
 go 220
-memo 장의 방
 add 404
 add 220+어
 add 220+시간2
@@ -294,8 +293,8 @@ add 220+시간4
 go 404
 add 404+바
 go 429
+root 370 응접실
 go 370
-memo 응접실
 add 163
 add 52
 add 213
@@ -331,8 +330,8 @@ add 343
 go 343
 memo 18시 살롱에 있던 사람
 memo 데이비드, 클로드, 크리스핀 신부, 로넷?, 이자벨
+root 270 현관 홀
 go 270
-memo 현관 홀
 add 145
 add 441
 add 270+카
@@ -344,8 +343,7 @@ go 323
 setclue 타 7
 go 414
 add 414+차
-go 430
-memo 남쪽계단
+root 430 남쪽계단
 go 31
 add 234
 setclue 차 20
@@ -359,15 +357,9 @@ setclue 하 62
 go 62
 go 95
 setclue 시간2 8
-go 120
-memo 화랑
-needcheck
-go 330
-memo 주방
-needcheck
-go 410
-memo 북쪽 계단
-needcheck
+root 120 화랑
+root 330 주방
+root 410 북쪽 계단
 go 298
 go 398
 memo 쌍둥이, 기러기, 물고기
@@ -398,9 +390,7 @@ add 249
 add 120+더
 add 120+도
 go 291
-go 385
-memo 15:00
-needcheck
+root 385 15:00
 go 249
 memo 연보라빛 등나무꽃
 memo 푸른하늘 하얀꽃
