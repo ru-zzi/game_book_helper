@@ -18,6 +18,21 @@ std::vector<std::string> parse(std::string_view sv)
     return std::views::split(sv, '+') | std::ranges::to<std::vector<std::string>>();
 }
 
+COORD GetConsoleCursorPosition(HANDLE hConsoleOutput)
+{
+    CONSOLE_SCREEN_BUFFER_INFO cbsi;
+    if (GetConsoleScreenBufferInfo(hConsoleOutput, &cbsi))
+    {
+        return cbsi.dwCursorPosition;
+    }
+    else
+    {
+        // The function failed. Call GetLastError() for details.
+        COORD invalid = { 0, 0 };
+        return invalid;
+    }
+}
+
 GameHelper::GameHelper()
 	: startedAt(std::chrono::system_clock::now()), consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
 {
@@ -95,11 +110,10 @@ int GameHelper::play()
             ss.ignore();
             if (!std::getline(ss, memo))
             {
-                showMemo(cursor);
                 continue;
             }
             addMemo(cursor, memo);
-            showMemo(cursor);
+            show(cursor);
         }
         else if (cmd == "clue")
         {
@@ -253,15 +267,9 @@ void GameHelper::setClue(const std::string& showClue, int x)
     }
 }
 
-void GameHelper::showMemo(int id)
-{
-    std::print("memo: {}\n", nodes[id].memo);
-}
-
 void GameHelper::addMemo(int id, const std::string& adding_desc)
 {
-    auto& desc = nodes[id].memo;
-    desc += desc.empty() ? adding_desc : ", " + adding_desc;
+    nodes[id].memo.push_back(adding_desc);
 }
 
 void GameHelper::show(int id, const std::string& prefix, bool isLast, const std::string& log)
@@ -274,13 +282,43 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
 		(isLast ? "戌式式" : "戍式式"));
 
 	SetConsoleTextAttribute(consoleHandle, cursor == node.id ? 10 : node.needCheck ? 4 : 7);
-	std::print("{}{}{:20}\t\t", 
+	std::print("{}{}{}", 
         log.empty() ? "" : std::format("({})=", log),
         node.id,
         cursor == node.id ? "９@" : node.needCheck ? "王" : "");
 
 	SetConsoleTextAttribute(consoleHandle, 7);
-	std::print("{}\n", node.memo.empty() ? "" : "memo: " + node.memo);
+    if (node.memo.empty())
+    {
+        std::print("\n");
+    }
+    else
+    {
+        for (int i = 0; const auto & memo : node.memo)
+        {
+            for (int j = 0; const auto& chunk : memo | std::views::chunk(60))
+            {
+                if (i > 0 || j > 0)
+                {
+				    std::print("{}{}{}", prefix, (isLast ? "   " : "弛  "), node.childs.empty() && node.backlogs.empty() ? "" : "弛  ");
+                }
+                SetConsoleCursorPosition(consoleHandle, COORD{ 40, GetConsoleCursorPosition(consoleHandle).Y });
+                if (i == 0)
+                {
+                    std::print("[{}] {}. {:40}\n", node.id, ++i, std::string_view(chunk));
+                }
+                else if (j == 0)
+                {
+                    std::print("{}{}. {}\n", std::string(std::format("[{}] ", node.id).size(), ' '), ++i, std::string_view(chunk));
+                }
+                else
+                {
+                    std::print("{}{}\n", std::string(std::format("[{}] {}. ", node.id, i).size(), ' '), std::string_view(chunk));
+                }
+                j++;
+            }
+        }
+    }
 
     int isNotLast = node.childs.size() + node.backlogs.size();
     for (int id : node.childs)
@@ -295,11 +333,10 @@ void GameHelper::show(int id, const std::string& prefix, bool isLast, const std:
         }
         else
         {
-            std::print("{:20}\n",
-                std::format("{}{}{}",
-                    prefix + (isLast ? "   " : "弛  "),
-                    (!--isNotLast ? "戌式式" : "戍式式"),
-                    std::format("({})=?", backlog)));
+			std::print("{}{}{}\n",
+				prefix + (isLast ? "   " : "弛  "),
+				(!--isNotLast ? "戌式式" : "戍式式"),
+				std::format("({})=?", backlog));
         }
     }
 }
