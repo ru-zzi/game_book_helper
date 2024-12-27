@@ -33,6 +33,8 @@ COORD GetConsoleCursorPosition(HANDLE hConsoleOutput)
     }
 }
 
+std::set<int> GameHelper::highLighted;
+
 GameHelper::GameHelper()
 	: startedAt(std::chrono::system_clock::now()), consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
 {
@@ -88,6 +90,7 @@ int GameHelper::play()
                 continue;
             }
             setRoot(id, memo);
+            show(id);
         }
         else if (cmd == "go")
         {
@@ -114,6 +117,7 @@ int GameHelper::play()
         else if (cmd == "needcheck")
         {
             setNeedCheck(cursor, true);
+            std::print("checked.\n");
         }
         else if (cmd == "memo")
         {
@@ -125,6 +129,17 @@ int GameHelper::play()
             }
             addMemo(cursor, memo);
             show(cursor);
+        }
+        else if (cmd == "search")
+        {
+            std::string token;
+            if (!(ss >> token))
+            {
+                err("input like: search token");
+                continue;
+            }
+            search(token);
+            continue;
         }
         else if (cmd == "clue")
         {
@@ -142,6 +157,7 @@ int GameHelper::play()
             }
             setClue(c, x);
             showClue();
+            search("+" + c);
         }
         else if (cmd == "show")
         {
@@ -289,54 +305,88 @@ void GameHelper::addMemo(int id, const std::string& adding_desc)
     nodes[id].memo.push_back(adding_desc);
 }
 
+void GameHelper::search(const std::string& token)
+{
+    const auto findToken = [token](const std::string& str) { return str.find(token) != std::string::npos; };
+
+    highLighted = {};
+
+    for (const auto& node : nodes)
+    {
+        if (std::ranges::any_of(node.memo, findToken))
+        {
+            highLighted.insert(node.id);
+        }
+        for (const auto& child : node.childs)
+        {
+            if (const auto sum = trySum(child); sum && findToken(child))
+            {
+                highLighted.insert(*sum);
+            }
+        }
+    }
+
+    for (int id : highLighted | std::views::transform([this](int id) { return findRoot(id); }) | std::ranges::to<std::set>())
+    {
+        show(id);
+    }
+
+    highLighted = {};
+}
+
 void GameHelper::show(int id, const std::string& prefix, bool isLast, const std::string& log)
 {
     const auto& node = nodes[id];
 
     if (isRoot(node) && !node.memo.empty())
     {
-        std::print("# {}\n", node.memo.front());
+        SetConsoleTextAttribute(consoleHandle, 7);
+        std::print("\n# {}\n", node.memo.front());
     }
 
-	SetConsoleTextAttribute(consoleHandle, 7);
+    SetConsoleTextAttribute(consoleHandle, highLighted.contains(id) ? 177 : 7);
 	std::print("{}{}",
 		prefix,
 		(isLast ? "戌式式" : "戍式式"));
 
-	SetConsoleTextAttribute(consoleHandle, cursor == node.id ? 10 : node.needCheck ? 4 : 7);
+	SetConsoleTextAttribute(consoleHandle, highLighted.contains(id) ? 177 : cursor == node.id ? 10 : node.needCheck ? 4 : 7);
 	std::print("{}{}{}", 
         log.empty() ? "" : std::format("({})=", log),
         node.id,
         cursor == node.id ? "９@" : node.needCheck ? "王" : "");
 
-	SetConsoleTextAttribute(consoleHandle, 7);
     if (node.memo.empty())
     {
+        std::print("{}", std::string(100 - GetConsoleCursorPosition(consoleHandle).X, ' '));
+        SetConsoleTextAttribute(consoleHandle, 7);
         std::print("\n");
     }
     else
     {
         for (int i = 0; const auto & memo : node.memo)
         {
-            for (int j = 0; const auto& chunk : memo | std::views::chunk(60))
+            for (int j = 0; const auto& chunk : memo | std::views::chunk(50))
             {
                 if (i > 0 || j > 0)
                 {
 				    std::print("{}{}{}", prefix, (isLast ? "   " : "弛  "), node.childs.empty() ? "" : "弛  ");
                 }
-                SetConsoleCursorPosition(consoleHandle, COORD{ 40, GetConsoleCursorPosition(consoleHandle).Y });
+                std::print("{}", std::string(40 - GetConsoleCursorPosition(consoleHandle).X, ' '));
                 if (i == 0)
                 {
-                    std::print("[{}] {}. {:40}\n", node.id, ++i, std::string_view(chunk));
+                    std::print("[{}] {}. {}", node.id, ++i, std::string_view(chunk));
                 }
                 else if (j == 0)
                 {
-                    std::print("{}{}. {}\n", std::string(std::format("[{}] ", node.id).size(), ' '), ++i, std::string_view(chunk));
+                    std::print("{}{}. {}", std::string(std::format("[{}] ", node.id).size(), ' '), ++i, std::string_view(chunk));
                 }
                 else
                 {
-                    std::print("{}{}\n", std::string(std::format("[{}] {}. ", node.id, i).size(), ' '), std::string_view(chunk));
+                    std::print("{}{}", std::string(std::format("[{}] {}. ", node.id, i).size(), ' '), std::string_view(chunk));
                 }
+                std::print("{}", std::string(100 - GetConsoleCursorPosition(consoleHandle).X, ' '));
+                SetConsoleTextAttribute(consoleHandle, 7);
+                std::print("\n");
                 j++;
             }
         }
