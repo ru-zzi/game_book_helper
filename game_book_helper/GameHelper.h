@@ -29,6 +29,7 @@ private:
     void setRoot(int id, const std::string& memo);
     void go(int id);
     void add(int from, const std::string& to);
+    void removeLastBranch();
     void setNeedCheck(int id, bool check);
     void setClue(const std::string& clue, int x);
     void addMemo(int id, const std::string& desc);

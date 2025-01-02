@@ -125,6 +125,23 @@ int GameHelper::play()
             add(cursor, id);
             show(findRoot(cursor));
         }
+        else if (cmd == "remove")
+        {
+            if (nodes[cursor].childs.empty())
+            {
+                err("추가된 간선이 없습니다.");
+                continue;
+            }
+            std::print("{} → {} 연결을 정말 지울까요? [Y/n]: ", cursor, nodes[cursor].childs.back());
+            std::string confirm;
+            if (!(std::cin >> confirm) || (std::cin.ignore(), toupper(confirm.front()) != 'Y'))
+            {
+                
+                continue;
+            }
+            removeLastBranch();
+            show(findRoot(cursor));
+        }
         else if (cmd == "needcheck")
         {
             setNeedCheck(cursor, true);
@@ -270,6 +287,16 @@ void GameHelper::add(int from, const std::string& to)
             setNeedCheck(*sum, true);
         }
     }
+}
+
+void GameHelper::removeLastBranch()
+{
+    if (auto sum = trySum(nodes[cursor].childs.back()); sum)
+    {
+        nodes[*sum].parent = {};
+        setNeedCheck(*sum, false);
+    }
+    nodes[cursor].childs.pop_back();
 }
 
 void GameHelper::setNeedCheck(int id, bool check)
@@ -497,6 +524,10 @@ void GameHelper::load()
             std::string to;
             ss >> to;
             add(cursor, to);
+        }
+        else if (cmd == "remove")
+        {
+            removeLastBranch();
         }
         else if (cmd == "needcheck")
         {
