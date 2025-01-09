@@ -18,7 +18,7 @@ bool isRoot(const node& x)
 
 bool isDiscovered(const node& x)
 {
-    return !x.parent;
+    return x.parent != 0;
 }
 
 std::vector<std::string> parse(std::string_view sv)
