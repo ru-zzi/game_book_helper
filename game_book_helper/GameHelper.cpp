@@ -117,12 +117,10 @@ int GameHelper::play()
         else if (cmd == "add")
         {
             std::string id;
-            if (!(ss >> id))
+            while (ss >> id)
             {
-                err("input like: add id|backlog");
-                continue;
+                add(cursor, id);
             }
-            add(cursor, id);
             show(findRoot(cursor));
         }
         else if (cmd == "remove")
@@ -522,8 +520,10 @@ void GameHelper::load()
         else if (cmd == "add")
         {
             std::string to;
-            ss >> to;
-            add(cursor, to);
+            while (ss >> to)
+            {
+                add(cursor, to);
+            }
         }
         else if (cmd == "remove")
         {
