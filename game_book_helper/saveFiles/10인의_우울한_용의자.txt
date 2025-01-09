@@ -400,3 +400,64 @@ memo 빨간 튤립
 memo 푸른꽃잎 아이리스
 memo 핑크꽃 아몬드나무
 playtime 1650
+go 385
+setclue 너 31
+add 199
+go 199
+memo 현관 홀 기억
+go 308
+memo 그림: 그리스도의 세례
+memo 단서: 더 = 8
+go 208
+memo 그림: 수태고지
+memo 단서: 더 = 3
+go 423
+memo 그림: 부활
+memo 단서: 더 = 17
+go 330
+add 76
+add 244
+go 76
+memo 선반 요리 단서
+go 244
+add 114
+go 114
+add 114+모
+go 430
+go 410
+root 350 미레유의 방
+root 170 클로드의 방
+root 60 크리스핀의 방
+root 110 데이비드의 방
+root 310 로넷의 방
+root 240 제레미의 방
+root 320 필립의 방
+go 350
+add 350+시간2
+add 350+시간3
+add 350+시간4
+go 358
+add 319
+add 271
+add 386
+go 319
+memo 3가지 도구는 '춤추는 인형', '4장의 카드', '해골 피리'
+setclue 거 20
+go 271
+go 386
+go 271
+memo 약품선반
+go 386
+go 320
+add 73
+add 275
+add 141
+go 73
+go 275
+setclue 버 26
+add 275+거
+go 295
+add 101
+go 101
+memo 양피지 단서
+playtime 1573
