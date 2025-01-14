@@ -73,7 +73,7 @@ int GameHelper::play()
 
     std::string line;
 
-    while (std::print("\n===================================\n\n"), std::getline(std::cin, line))
+    while (std::print("\n===================================\n\n"), std::cin.ignore(), std::getline(std::cin, line))
     {
         std::stringstream ss(line);
         std::string cmd;
@@ -159,7 +159,8 @@ int GameHelper::play()
         else if (cmd == "search")
         {
             std::string token;
-            if (!(ss >> token))
+            ss.ignore();
+            if (!std::getline(ss, token))
             {
                 err("input like: search token");
                 continue;
