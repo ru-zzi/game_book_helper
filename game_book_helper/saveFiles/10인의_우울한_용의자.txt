@@ -461,3 +461,45 @@ add 101
 go 101
 memo 양피지 단서
 playtime 1573
+go 141
+add 203
+go 203
+memo 초대 손님들의 의료 기록 차트
+go 310
+add 310+시간2
+add 310+시간3
+add 310+시간4
+go 318
+add 32 96
+go 32
+setclue 러 11
+go 96
+go 327
+go 381
+go 60
+add 60+시간2
+add 60+시간3
+add 60+시간4
+go 68
+add 99 289
+go 99
+memo 화랑에 걸 그림은 부활
+go 289
+go 240
+add 240+시간2
+add 240+시간3
+add 240+시간4
+go 248
+add 109 71
+go 109
+add 269
+go 269
+add 301
+go 301
+root 230 살롱
+go 71
+memo 지구본에는 절대로 손을 대지 말라고
+go 230
+root 400 서고
+add 15 431 131 55 230+시간3
+playtime 1066
