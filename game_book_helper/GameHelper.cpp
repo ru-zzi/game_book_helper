@@ -72,8 +72,8 @@ int GameHelper::play()
     file.open(saveFileName, std::ios::app);
 
     std::string line;
-
-    while (std::print("\n===================================\n\n"), std::cin.ignore(), std::getline(std::cin, line))
+    std::cin.ignore();
+    while (std::print("\n===================================\n\n"), std::getline(std::cin, line))
     {
         std::stringstream ss(line);
         std::string cmd;
@@ -229,11 +229,13 @@ int GameHelper::play()
 
     file.close();
 
-    std::print("GameHelper::오늘의 게임끝~\n오늘 게임시간 : {}\n누적 게임시간 : {}\n\n진행된 단락 수: [{}/{}]\n\n",
+    const auto discovered = std::ranges::count_if(nodes, isDiscovered);
+    std::print("GameHelper::오늘의 게임끝~\n오늘 게임시간 : {}\n누적 게임시간 : {}\n\n진행된 단락 수: [{}/{} {:.4}\%]\n\n",
         std::chrono::duration_cast<std::chrono::minutes>(duration),
 		std::chrono::duration_cast<std::chrono::minutes>(totalPlayTime),
-        std::ranges::distance(nodes | std::views::filter(isDiscovered)),
-        max_id);
+        discovered,
+        max_id,
+        100. * discovered / max_id);
 
     return 0;
 }
