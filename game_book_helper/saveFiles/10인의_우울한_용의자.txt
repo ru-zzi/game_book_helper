@@ -536,3 +536,26 @@ add 237
 go 237
 add 237+모
 playtime 1341
+go 170
+add 170+시간2
+add 170+시간3
+add 170+시간4
+go 178
+add 344 178+더
+go 344
+add 162 405
+go 162
+go 405
+add 405+너
+go 436
+setclue 더 3
+setclue 더 17
+go 195
+add 195+너 195+러
+go 226
+add 173
+go 173
+setclue 머 70
+root 215 21:00
+go 215
+playtime 1096
