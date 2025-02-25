@@ -559,3 +559,29 @@ setclue 머 70
 root 215 21:00
 go 215
 playtime 1096
+go 108
+go 137
+go 418
+go 206
+root 100 떠돌이 광대의 방
+go 110
+add 110+시간2
+add 110+시간3
+add 110+시간4
+go 118
+add 118+머
+go 188
+add 188+버
+go 214
+add 440 139
+go 139
+go 440
+add 322
+go 322
+memo 데이비드가 발견한 것: <<디너의 마무리>>
+setclue 서 9
+go 421
+root 250 연구자료실
+go 250
+go 421
+playtime 1483
