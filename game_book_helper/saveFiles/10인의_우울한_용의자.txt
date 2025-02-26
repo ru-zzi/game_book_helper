@@ -585,3 +585,41 @@ root 250 연구자료실
 go 250
 go 421
 playtime 1483
+go 100
+add 283 167 366 426
+go 167
+add 29 321
+go 29
+add 44
+go 44
+go 321
+add 54
+go 54
+go 283
+memo 다트판
+add 397 154
+go 397
+go 154
+go 397
+go 366
+memo 둥근 테이블
+add 94 172
+go 94
+go 172
+add 242 357
+go 357
+add 192
+go 192
+go 242
+go 426
+memo 아르카디아의 목자들
+go 242
+add 105
+go 105
+add 63 258
+go 258
+add 416
+go 63
+add 416
+go 416
+playtime 1460
