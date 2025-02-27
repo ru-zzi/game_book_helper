@@ -623,3 +623,28 @@ go 63
 add 416
 go 416
 playtime 1460
+go 421
+add 342
+setclue 어 35
+go 255
+root 415 22:00
+add 179
+go 415
+go 179
+add 75
+go 75
+add 351 294
+go 351
+go 294
+add 153
+go 153
+memo 살롱에 있는 로넷
+memo 데이비드 시체 발견, 십자가
+add 39
+go 39
+add 346
+go 346
+setclue 시간3 23
+root 10 기도실
+go 313
+playtime 1633
