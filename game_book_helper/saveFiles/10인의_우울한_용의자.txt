@@ -648,3 +648,46 @@ setclue 시간3 23
 root 10 기도실
 go 313
 playtime 1633
+go 243
+go 363
+add 47 164
+go 164
+go 47
+go 133
+add 133+커
+go 333
+add  27 177
+go 27
+memo 데이비드는 조르주가 죽은 후 피리를 찾고 있었다
+go 177
+memo 물방울이 떨어지는 소리가 들렸음
+go 253
+add 347 253+처
+go 347
+memo 데이비드 오른쪽 옆구리 칼로 Sabachthani
+go 53
+add 382 222
+go 382
+memo 제레미는 살롱에서 피아노 소리를 들었다
+go 222
+memo 조르주 사망 <최후의 만찬>
+memo 필립 사망 <유다의 입맞춤>
+memo 데이비드 사망 <십자가 형벌>
+memo <부활> ?
+go 263
+add 341 107
+go 107
+memo 제레미는 이자벨을 의심
+go 341
+memo 제레미 : 이자벨은 수브니르의 파수꾼
+go 193
+add 311 413 43
+go 311
+memo 단서 : 세가지 도구, 안경
+go 413
+root 205 13:00
+go 205
+go 43
+go 342
+go 373
+playtime 1440
