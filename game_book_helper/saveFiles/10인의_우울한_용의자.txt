@@ -691,3 +691,36 @@ go 43
 go 342
 go 373
 playtime 1440
+add 84 156 373+目
+go 84
+go 156
+go 83
+add 266 59 83+目
+go 266
+go 59
+setclue 历 22
+go 74
+add 360
+go 360
+root 175 15:30
+go 175
+setclue 贸 26
+go 279
+setclue 目 15
+go 388
+add 299 223
+go 299
+go 223
+setclue 倾 32
+go 112
+root 45 14:30
+add 285
+go 285
+go 112
+remove
+go 45
+add 285
+go 285
+setclue 绊 7
+go 77
+playtime 1498
