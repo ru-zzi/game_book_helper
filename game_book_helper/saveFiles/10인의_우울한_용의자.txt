@@ -724,3 +724,31 @@ go 285
 setclue 고 7
 go 77
 playtime 1498
+memo 123456789 퀴즈
+go 98
+setclue 퍼 42
+go 57
+memo 피리 퀴즈
+go 148
+add 134 56 432
+go 134
+memo 3월6일 14시라고 적힌 테이프, 사건 일주일 전
+go 56
+memo 3월 12일 15시30분이라고 적힌 테이프
+memo 정원에 천리향이 피어있다
+go 432
+memo 3월 12일 23시라고 적힌 테이프
+memo 떠돌이 광대방에서 단서를 발견했다
+memo 살롱 책 속에 피리 음계가 들어있었다
+add 245
+root 315 17:30
+go 245
+go 315
+memo 필립이 선반에 둔 두통약이 대량으로 사라짐
+add 89
+go 89
+setclue 터 11
+add 273
+go 273
+go 36
+playtime 1466
