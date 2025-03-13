@@ -752,3 +752,33 @@ add 273
 go 273
 go 36
 playtime 1466
+go 57
+add 276
+root 260 열리지 않는 방
+go 276
+go 260
+add 207 8
+go 207
+memo 열십자의 꿈
+go 8
+add 20 169 218
+go 20
+add 403 86
+go 403
+go 10
+add 277 387 229
+go 277
+add 4 236
+go 4
+go 236
+go 77
+add 51
+go 51
+root 380 납골당
+go 387
+add 187
+go 187
+memo 양피지4 힌트
+go 229
+go 380
+playtime 1808
