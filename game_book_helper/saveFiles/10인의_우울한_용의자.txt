@@ -782,3 +782,28 @@ memo 양피지4 힌트
 go 229
 go 380
 playtime 1808
+add 40 7 306
+go 40
+add 379 67 224 353 127
+go 379
+memo 나그 함마디
+go 67
+memo 나팔절 사해문서
+go 224
+memo 쌍둥이 가면
+go 353
+memo 유다복음
+go 127
+go 7
+memo 해골 조사
+go 306
+add 394
+go 394
+go 50
+memo 세면대
+go 7
+add 284
+go 284
+setclue 노 14
+go 8
+playtime 1323
