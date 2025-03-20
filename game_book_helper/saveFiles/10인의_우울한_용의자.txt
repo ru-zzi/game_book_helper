@@ -807,3 +807,21 @@ go 284
 setclue 노 14
 go 8
 playtime 1323
+go 218
+add 312
+go 312
+add 113
+go 113
+add 331
+go 331
+add 331+노
+go 345
+add 185
+go 185
+add 254
+go 254
+root 300 숨겨진 방
+setclue 시간4 19
+go 309
+go 30
+playtime 1630
