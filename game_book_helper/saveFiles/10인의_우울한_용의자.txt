@@ -838,3 +838,64 @@ memo 일일책방 사수 수납 방수더 십장생도 사빼 을지 자백 할일없을이 복도 당일 책자
 go 420
 setclue 코 15
 go 78
+playtime 13
+go 310
+go 329
+add 227 174
+go 227
+go 174
+go 240
+go 259
+add 61 122 12+보
+go 61
+go 122
+go 60
+go 79
+add 303
+go 303
+go 170
+go 189
+add 189+코
+go 204
+add 64
+go 64
+add 367
+go 367
+add 256
+go 256
+add 401
+go 401
+add 232
+go 232
+setclue 도 10
+setclue 토 72
+go 130
+root 165 13:30
+go 165
+playtime 903
+go 369
+add 26 369+모
+go 26
+setclue 로 23
+go 48
+add 361
+go 361
+setclue 모 30
+go 438
+memo 화살표
+go 395
+setclue 오 26
+memo 피리
+go 399
+setclue 보 60
+go 424
+memo 조합할 때 하얀 에센셜 오일과 자색 에센셜 오일을 같이 사용할 수는 없다. 마지막으로 '별'이름이 붙은 에센셜 오일을 조합한다.
+go 72
+memo 조합할 세 종류의 에센셜 오일은 색이나 이름이 모두 다르다. 조합하는 순서대로 끝말잇기를 할 수 있다.
+go 46
+memo 별
+go 267
+go 144
+memo 지도
+go 267
+playtime 1807
