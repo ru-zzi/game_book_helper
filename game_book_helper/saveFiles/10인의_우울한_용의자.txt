@@ -899,3 +899,77 @@ go 144
 memo 지도
 go 267
 playtime 1807
+go 359
+add 359+초
+go 69
+add 221 391
+go 221
+add 292
+memo 아로마오일로 릴렉스
+go 292
+add 354
+go 354
+root 355 22:30
+go 355
+setclue 소 50
+go 176
+add 392
+go 392
+add 41 159
+memo TODO: 도망다니는중
+go 239
+add 239+오
+go 265
+add 406
+go 406
+go 129
+go 49
+go 391
+playtime 845
+go 41
+go 159
+add 14 286
+go 14
+go 286
+add 28 157 396 14
+go 28
+go 157
+go 396
+add 5 132 14
+go 132
+add 81 212
+go 81
+add 14
+go 212
+add 281 378
+go 5
+add 307 97
+go 307
+go 97
+add 149 251 14
+go 378
+add 158 14
+go 158
+add 14 326
+go 326
+root 335 19:00
+add 3
+go 335
+add 261
+go 261
+go 3
+setclue 조 38
+go 428
+root 115 21:30
+go 115
+setclue 초 50
+go 409
+add 411
+go 411
+add 304
+go 304
+add 304+토
+go 376
+add 337
+go 337
+playtime 1749
